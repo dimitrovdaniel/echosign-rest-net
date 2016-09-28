@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EchosignRESTClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Echosign REST API .NET Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Daniel Dimitrov")]
 [assembly: AssemblyProduct("EchosignRESTClient")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

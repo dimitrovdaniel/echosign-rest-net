@@ -69,6 +69,7 @@ namespace EchosignRESTClient
                     TokenResponse tokenObj = JsonConvert.DeserializeObject<TokenResponse>(response);
 
                     this.accessToken = tokenObj.access_token;
+                    this.accessTokenExpires = tokenObj.expires_in;
                     this.refreshToken = tokenObj.refresh_token;
 
                     client.DefaultRequestHeaders.Remove("Access-Token");
@@ -106,6 +107,7 @@ namespace EchosignRESTClient
                     RefreshTokenResponse tokenObj = JsonConvert.DeserializeObject<RefreshTokenResponse>(response);
 
                     this.accessToken = tokenObj.access_token;
+                    this.accessTokenExpires = tokenObj.expires_in;
 
                     client.DefaultRequestHeaders.Remove("Access-Token");
                     client.DefaultRequestHeaders.Add("Access-Token", accessToken);
