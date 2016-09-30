@@ -51,6 +51,8 @@
     <Compile Include="Models\AgreementStatusUpdateResponse.cs" />
     <Compile Include="Models\AgreementStatusUpdateInfo.cs" />
     <Compile Include="Models\AgreementCreationResponse.cs" />
+    <Compile Include="Models\CounterSignerInfo.cs" />
+    <Compile Include="Models\CounterSignerSetInfo.cs" />
     <Compile Include="Models\UserAgreements.cs" />
     <Compile Include="Models\UserAgreement.cs" />
     <Compile Include="Models\DisplayUserSetInfo.cs" />
@@ -76,6 +78,14 @@
     <Compile Include="Models\RefreshTokenResponse.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Models\TransientDocument.cs" />
+    <Compile Include="Models\WidgetCreationInfo.cs" />
+    <Compile Include="Models\WidgetCreationResponse.cs" />
+    <Compile Include="Models\WidgetMinimalRequest.cs" />
+    <Compile Include="Models\WidgetPersonalizationInfo.cs" />
+    <Compile Include="Models\WidgetPersonalizedResponse.cs" />
+    <Compile Include="Models\WidgetSecurityOption.cs" />
+    <Compile Include="Models\WidgetStatusUpdateResponse.cs" />
+    <Compile Include="Models\WidgetStatusUpdateInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

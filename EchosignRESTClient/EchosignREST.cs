@@ -345,6 +345,106 @@ namespace EchosignRESTClient
             }
         }
 
+        /// <summary>
+        /// Creates a widget and returns the Javascript snippet and URL to access the widget and widgetID in response to the client
+        /// </summary>
+        /// <param name="newWidget">Information about the widget that you want to create</param>
+        /// <returns>WidgetCreationResponse</returns>
+        public async Task<WidgetCreationResponse> CreateWidget(WidgetMinimalRequest newWidget)
+        {
+            string serializedObject = JsonConvert.SerializeObject(newWidget);
+
+            using (StringContent content = new StringContent(serializedObject, Encoding.UTF8))
+            {
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/json");
+
+                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/widgets", content);
+                if (result.IsSuccessStatusCode)
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    WidgetCreationResponse widget = JsonConvert.DeserializeObject<WidgetCreationResponse>(response);
+
+                    return widget;
+                }
+                else
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    HandleError(result.StatusCode, response, false);
+
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Personalize the widget to a signable document for a specific known user
+        /// </summary>
+        /// <param name="widgetId">The widget identifier, as returned by the widget creation API or retrieved from the API to fetch widgets</param>
+        /// <param name="email">The email address of the person who will be receiving this widget</param>
+        /// <returns></returns>
+        public async Task<WidgetPersonalizedResponse> PersonalizedWidget(string widgetId, string email)
+        {
+            WidgetPersonalizationInfo info = new WidgetPersonalizationInfo();
+            info.email = email;
+            string serializedObject = JsonConvert.SerializeObject(info);
+
+            using (StringContent content = new StringContent(serializedObject, Encoding.UTF8))
+            {
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/json");
+
+                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/widgets/" + widgetId + "/personalize", content);
+                if (result.IsSuccessStatusCode)
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    WidgetPersonalizedResponse widget = JsonConvert.DeserializeObject<WidgetPersonalizedResponse>(response);
+
+                    return widget;
+                }
+                else
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    HandleError(result.StatusCode, response, false);
+
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enables or Disables a widget
+        /// </summary>
+        /// <param name="widgetId">The widget identifier, as returned by the widget creation API or retrieved from the API to fetch widgets</param>
+        /// <param name="info">Widget status update information object</param>
+        /// <returns>WidgetStatusUpdateResponse</returns>
+        public async Task<WidgetStatusUpdateResponse> UpdateWidgetStatus(string widgetId, WidgetStatusUpdateInfo info)
+        {
+            string serializedObject = JsonConvert.SerializeObject(info);
+
+            using (StringContent content = new StringContent(serializedObject, Encoding.UTF8))
+            {
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/json");
+
+                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/widgets/" + widgetId + "/status", content);
+                if (result.IsSuccessStatusCode)
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    WidgetStatusUpdateResponse widget = JsonConvert.DeserializeObject<WidgetStatusUpdateResponse>(response);
+
+                    return widget;
+                }
+                else
+                {
+                    string response = await result.Content.ReadAsStringAsync();
+                    HandleError(result.StatusCode, response, false);
+
+                    return null;
+                }
+            }
+        }
+
         private void HandleError(HttpStatusCode statusCode, string response, bool isOAuthError = false)
         {
             switch (statusCode)

@@ -36,5 +36,30 @@ namespace EchosignRESTClient.Models
         /// Note: leave unspecified for hybrid routing
         /// </summary>
         public string signatureFlow { get; set; }
+
+        /// <summary>
+        /// A list of one or more email addresses that you want to copy on this transaction. 
+        /// The email addresses will each receive an email at the beginning of the transaction 
+        /// and also when the final document is signed. The email addresses will also receive a 
+        /// copy of the document, attached as a PDF file
+        /// </summary>
+        public List<string> ccs { get; set; }
+
+        /// <summary>
+        /// A publicly accessible url to which Adobe Sign will do an HTTP GET operation every time there is a new agreement event.
+        /// Your GET url will receive the following parameters: documentKey={AGREEMENT_ID}&status={STATUS}&eventType={EVENT_TYPE}
+        /// </summary>
+        public string callbackInfo { get; set; }
+
+        /// <summary>
+        /// The number of days that remain before the document expires. You cannot sign the document after it expires
+        /// </summary>
+        public int daysUntilSigningDeadline { get; set; }
+
+        /// <summary>
+        ///  ['DAILY_UNTIL_SIGNED' or 'WEEKLY_UNTIL_SIGNED']: Optional parameter that sets how often you want 
+        ///  to send reminders to the recipients. 
+        /// </summary>
+        public string reminderFrequency { get; set; }
     }
 }
