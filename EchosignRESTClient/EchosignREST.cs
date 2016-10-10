@@ -15,7 +15,7 @@ namespace EchosignRESTClient
     /// <summary>
     ///  EchosignREST client for working with the Echosign REST v5+ api
     /// </summary>
-    public class EchosignREST : IDisposable
+    public class EchosignREST : IDisposable, IEchosignREST
     {
         private HttpClient client;
 
@@ -281,6 +281,54 @@ namespace EchosignRESTClient
                 AgreementInfo agreement = JsonConvert.DeserializeObject<AgreementInfo>(response);
 
                 return agreement;
+            }
+            else
+            {
+                string response = await result.Content.ReadAsStringAsync();
+                HandleError(result.StatusCode, response, false);
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the IDs of all the main and supporting documents of an agreement identified by agreementid
+        /// </summary>
+        /// <param name="agreementId">The agreement identifier, as returned by the agreement creation API or retrieved from the API to fetch agreements</param>
+        /// <returns>AgreementInfo</returns>
+        public async Task<AgreementDocuments> GetAgreementDocuments(string agreementId)
+        {
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents");
+            if (result.IsSuccessStatusCode)
+            {
+                string response = await result.Content.ReadAsStringAsync();
+                AgreementDocuments agreement = JsonConvert.DeserializeObject<AgreementDocuments>(response);
+
+                return agreement;
+            }
+            else
+            {
+                string response = await result.Content.ReadAsStringAsync();
+                HandleError(result.StatusCode, response, false);
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the file stream of a document of an agreement
+        /// </summary>
+        /// <param name="agreementId">The agreement identifier, as returned by the agreement creation API or retrieved from the API to fetch agreements</param>
+        /// <param name="documentId">The document identifier, as retrieved from the API which fetches the documents of a specified agreement</param>
+        /// <returns>AgreementInfo</returns>
+        public async Task<Stream> GetAgreementDocument(string agreementId, string documentId)
+        {
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents/" + documentId);
+            if (result.IsSuccessStatusCode)
+            {
+                Stream response = await result.Content.ReadAsStreamAsync();
+
+                return response;
             }
             else
             {
