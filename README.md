@@ -2,7 +2,7 @@
 
 This is the initial version of Echosign REST API .NET Client. It contains only the minimum required methods for uploading and sending an echosign document/agreement to people for signing.
 
-**UPDATE: Added document listing and retrieving for agreement documents. Also extracted an interface for the client for when unit tests are needed.**
+**UPDATE: Added document listing and retrieving for agreement documents. Also extracted an interface for the client for when unit tests are needed.**    
 **UPDATE: Added Widget creation/personalization methods in latest version.**    
 **UPDATE: Added additional parameters to DocumentCreationInfo. Callback URL can now be added to notify you when documents are signed.**
 
