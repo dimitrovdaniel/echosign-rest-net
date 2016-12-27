@@ -61,5 +61,9 @@ namespace EchosignRESTClient.Models
         ///  to send reminders to the recipients. 
         /// </summary>
         public string reminderFrequency { get; set; }
+        /// <summary>
+        /// An optional message to the recipients, describing what is being sent or why their signature is required
+        /// </summary>
+        public string message { get; set; }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="Models\AgreementCreationResponse.cs" />
     <Compile Include="Models\CounterSignerInfo.cs" />
     <Compile Include="Models\CounterSignerSetInfo.cs" />
+    <Compile Include="Models\URLFileInfo.cs" />
     <Compile Include="Models\UserAgreements.cs" />
     <Compile Include="Models\UserAgreement.cs" />
     <Compile Include="Models\DisplayUserSetInfo.cs" />

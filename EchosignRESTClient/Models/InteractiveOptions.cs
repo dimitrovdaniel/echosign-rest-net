@@ -16,5 +16,6 @@ namespace EchosignRESTClient.Models
         ///  If user settings allow, automatically logs the user in
         /// </summary>
         public bool autoLoginUser { get; set; }
+        public bool noChrome { get; set; }
     }
 }

@@ -20,5 +20,6 @@ namespace EchosignRESTClient.Models
         /// Specify the name of Recipient set. Maximum no of characters in recipient set name is restricted to 255
         /// </summary>
         public string recipientSetName { get; set; }
+        public int? signingOrder { get; set; }
     }
 }
