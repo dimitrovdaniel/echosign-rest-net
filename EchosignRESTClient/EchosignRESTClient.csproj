@@ -49,6 +49,10 @@
     <Compile Include="ErrorHandling\EchosignBadRequestException.cs" />
     <Compile Include="ErrorHandling\EchosignOAuthException.cs" />
     <Compile Include="IEchosignREST.cs" />
+    <Compile Include="Models\ParticipantEmailSetInfo.cs" />
+    <Compile Include="Models\ParticipantEmailInfo.cs" />
+    <Compile Include="Models\ReminderCreationResult.cs" />
+    <Compile Include="Models\ReminderCreationInfo.cs" />
     <Compile Include="Models\AgreementSupportingDocument.cs" />
     <Compile Include="Models\AgreementDocument.cs" />
     <Compile Include="Models\AgreementDocuments.cs" />

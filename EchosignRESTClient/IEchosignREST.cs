@@ -27,5 +27,6 @@ namespace EchosignRESTClient
         Task Revoke(string token);
         Task<WidgetStatusUpdateResponse> UpdateWidgetStatus(string widgetId, WidgetStatusUpdateInfo info);
         Task<TransientDocument> UploadTransientDocument(string fileName, byte[] file, string mimeType = null);
+        Task<ReminderCreationResult> SendReminders(ReminderCreationInfo info);
     }
 }

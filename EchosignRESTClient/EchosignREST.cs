@@ -62,7 +62,7 @@ namespace EchosignRESTClient
                 new KeyValuePair<string, string>("redirect_uri", redirect_uri)
             }))
             {
-                HttpResponseMessage result = await client.PostAsync("oauth/token", content);
+                HttpResponseMessage result = await client.PostAsync("oauth/token", content).ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
                     string response = await result.Content.ReadAsStringAsync();
@@ -77,7 +77,7 @@ namespace EchosignRESTClient
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, true);
                 }
             }
@@ -100,10 +100,10 @@ namespace EchosignRESTClient
                 new KeyValuePair<string, string>("refresh_token", refreshToken)
             }))
             {
-                HttpResponseMessage result = await client.PostAsync("oauth/refresh", content);
+                HttpResponseMessage result = await client.PostAsync("oauth/refresh", content).ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     RefreshTokenResponse tokenObj = JsonConvert.DeserializeObject<RefreshTokenResponse>(response);
 
                     this.accessToken = tokenObj.access_token;
@@ -114,7 +114,7 @@ namespace EchosignRESTClient
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, true);
                 }
             }
@@ -132,10 +132,10 @@ namespace EchosignRESTClient
                 new KeyValuePair<string, string>("token", token)
             }))
             {
-                HttpResponseMessage result = await client.PostAsync("oauth/revoke", content);
+                HttpResponseMessage result = await client.PostAsync("oauth/revoke", content).ConfigureAwait(false);
                 if (!result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, true);
                 }
             }
@@ -161,14 +161,14 @@ namespace EchosignRESTClient
                 HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/transientDocuments", content);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     TransientDocument document = JsonConvert.DeserializeObject<TransientDocument>(response);
 
                     return document;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -190,17 +190,17 @@ namespace EchosignRESTClient
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/json");
 
-                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/agreements", content);
+                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/agreements", content).ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     AgreementCreationResponse agreement = JsonConvert.DeserializeObject<AgreementCreationResponse>(response);
 
                     return agreement;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -226,17 +226,18 @@ namespace EchosignRESTClient
                 content.Headers.Add("Content-Type", "application/json");
 
                 HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/agreements/" + agreementId + "/participantSets/" +
-                                                        participantSetId + "/participants/" + participantId + "/alternateParticipants", content);
+                                                        participantSetId + "/participants/" + participantId + "/alternateParticipants", content)
+                                                        .ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     AlternateParticipantResponse agreement = JsonConvert.DeserializeObject<AlternateParticipantResponse>(response);
 
                     return agreement;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -250,17 +251,17 @@ namespace EchosignRESTClient
         /// <returns>UserAgreements</returns>
         public async Task<UserAgreements> GetAgreements()
         {
-            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements");
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements").ConfigureAwait(false);
             if (result.IsSuccessStatusCode)
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 UserAgreements agreements = JsonConvert.DeserializeObject<UserAgreements>(response);
 
                 return agreements;
             }
             else
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 HandleError(result.StatusCode, response, false);
 
                 return null;
@@ -274,17 +275,17 @@ namespace EchosignRESTClient
         /// <returns>AgreementInfo</returns>
         public async Task<AgreementInfo> GetAgreement(string agreementId)
         {
-            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId);
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId).ConfigureAwait(false);
             if (result.IsSuccessStatusCode)
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 AgreementInfo agreement = JsonConvert.DeserializeObject<AgreementInfo>(response);
 
                 return agreement;
             }
             else
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 HandleError(result.StatusCode, response, false);
 
                 return null;
@@ -298,17 +299,17 @@ namespace EchosignRESTClient
         /// <returns>AgreementInfo</returns>
         public async Task<AgreementDocuments> GetAgreementDocuments(string agreementId)
         {
-            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents");
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents").ConfigureAwait(false);
             if (result.IsSuccessStatusCode)
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 AgreementDocuments agreement = JsonConvert.DeserializeObject<AgreementDocuments>(response);
 
                 return agreement;
             }
             else
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 HandleError(result.StatusCode, response, false);
 
                 return null;
@@ -323,16 +324,17 @@ namespace EchosignRESTClient
         /// <returns>AgreementInfo</returns>
         public async Task<Stream> GetAgreementDocument(string agreementId, string documentId)
         {
-            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents/" + documentId);
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/agreements/" + agreementId + "/documents/" + documentId)
+                                                        .ConfigureAwait(false);
             if (result.IsSuccessStatusCode)
             {
-                Stream response = await result.Content.ReadAsStreamAsync();
+                Stream response = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
                 return response;
             }
             else
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 HandleError(result.StatusCode, response, false);
 
                 return null;
@@ -360,17 +362,18 @@ namespace EchosignRESTClient
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/json");
 
-                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/agreements/" + agreementId + "/status", content);
+                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/agreements/" + agreementId + "/status", content)
+                                                        .ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     AgreementStatusUpdateResponse agreement = JsonConvert.DeserializeObject<AgreementStatusUpdateResponse>(response);
 
                     return agreement;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -385,10 +388,10 @@ namespace EchosignRESTClient
         /// <returns>void</returns>
         public async Task DeleteAgreement(string agreementId)
         {
-            HttpResponseMessage result = await client.DeleteAsync(apiEndpointVer + "/agreements/" + agreementId);
+            HttpResponseMessage result = await client.DeleteAsync(apiEndpointVer + "/agreements/" + agreementId).ConfigureAwait(false);
             if (!result.IsSuccessStatusCode)
             {
-                string response = await result.Content.ReadAsStringAsync();
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 HandleError(result.StatusCode, response, false);
             }
         }
@@ -407,17 +410,17 @@ namespace EchosignRESTClient
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/json");
 
-                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/widgets", content);
+                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/widgets", content).ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     WidgetCreationResponse widget = JsonConvert.DeserializeObject<WidgetCreationResponse>(response);
 
                     return widget;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -442,17 +445,18 @@ namespace EchosignRESTClient
                 content.Headers.Remove("Content-Type");
                 content.Headers.Add("Content-Type", "application/json");
 
-                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/widgets/" + widgetId + "/personalize", content);
+                HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/widgets/" + widgetId + "/personalize", content)
+                                                        .ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     WidgetPersonalizedResponse widget = JsonConvert.DeserializeObject<WidgetPersonalizedResponse>(response);
 
                     return widget;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -478,14 +482,14 @@ namespace EchosignRESTClient
                 HttpResponseMessage result = await client.PutAsync(apiEndpointVer + "/widgets/" + widgetId + "/status", content);
                 if (result.IsSuccessStatusCode)
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     WidgetStatusUpdateResponse widget = JsonConvert.DeserializeObject<WidgetStatusUpdateResponse>(response);
 
                     return widget;
                 }
                 else
                 {
-                    string response = await result.Content.ReadAsStringAsync();
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                     HandleError(result.StatusCode, response, false);
 
                     return null;
@@ -517,6 +521,37 @@ namespace EchosignRESTClient
             }
         }
 
+        /// <summary>
+        /// Sends a reminder for an agreement.
+        /// </summary>
+        /// <param name="agreementId">The agreement identifier, as returned by the agreement creation API or retrieved from the API to fetch agreements</param>
+        /// <returns>AgreementInfo</returns>
+        public async Task<ReminderCreationResult> SendReminders(ReminderCreationInfo info)
+        {
+            string serializedObject = JsonConvert.SerializeObject(info);
+
+            using (StringContent content = new StringContent(serializedObject, Encoding.UTF8))
+            {
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/json");
+
+                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/reminders", content).ConfigureAwait(false);
+                if (result.IsSuccessStatusCode)
+                {
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    ReminderCreationResult agreement = JsonConvert.DeserializeObject<ReminderCreationResult>(response);
+
+                    return agreement;
+                }
+                else
+                {
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    HandleError(result.StatusCode, response, false);
+
+                    return null;
+                }
+            }
+        }
         public void Dispose()
         {
             if (this.client != null)
