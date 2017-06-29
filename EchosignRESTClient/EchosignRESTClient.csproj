@@ -51,6 +51,7 @@
     <Compile Include="IEchosignREST.cs" />
     <Compile Include="Models\ParticipantEmailSetInfo.cs" />
     <Compile Include="Models\ParticipantEmailInfo.cs" />
+    <Compile Include="Models\UserCreationResponse.cs" />
     <Compile Include="Models\ReminderCreationResult.cs" />
     <Compile Include="Models\ReminderCreationInfo.cs" />
     <Compile Include="Models\AgreementSupportingDocument.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Models\RefreshTokenResponse.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Models\TransientDocument.cs" />
+    <Compile Include="Models\UserCreationInfo.cs" />
     <Compile Include="Models\WidgetCreationInfo.cs" />
     <Compile Include="Models\WidgetCreationResponse.cs" />
     <Compile Include="Models\WidgetMinimalRequest.cs" />

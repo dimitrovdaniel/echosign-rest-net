@@ -552,6 +552,39 @@ namespace EchosignRESTClient
                 }
             }
         }
+
+        /// <summary>
+        /// Creates a user on your Echosign account.
+        /// </summary>
+        /// <param name="info">The info of the user you want to create.</param>
+        /// <returns></returns>
+        public async Task<UserCreationResponse> CreateUser(UserCreationInfo info)
+        {
+            string serializedObject = JsonConvert.SerializeObject(info);
+
+            using (StringContent content = new StringContent(serializedObject, Encoding.UTF8))
+            {
+                content.Headers.Remove("Content-Type");
+                content.Headers.Add("Content-Type", "application/json");
+
+                HttpResponseMessage result = await client.PostAsync(apiEndpointVer + "/users", content).ConfigureAwait(false);
+                if (result.IsSuccessStatusCode)
+                {
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    UserCreationResponse user = JsonConvert.DeserializeObject<UserCreationResponse>(response);
+
+                    return user;
+                }
+                else
+                {
+                    string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    HandleError(result.StatusCode, response, false);
+
+                    return null;
+                }
+            }
+        }
+
         public void Dispose()
         {
             if (this.client != null)
@@ -607,6 +640,18 @@ namespace EchosignRESTClient
             get
             {
                 return accessTokenExpires;
+            }
+        }
+
+        /// <summary>
+        /// Sets the user (by email) from your Echosign account that will be used in the operations
+        /// </summary>
+        public string UserEmail
+        {
+            set
+            {
+                client.DefaultRequestHeaders.Remove("x-api-user");
+                client.DefaultRequestHeaders.Add("x-api-user", "email:" + value);
             }
         }
     }
