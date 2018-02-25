@@ -51,6 +51,7 @@
     <Compile Include="IEchosignREST.cs" />
     <Compile Include="Models\ParticipantEmailSetInfo.cs" />
     <Compile Include="Models\ParticipantEmailInfo.cs" />
+    <Compile Include="Models\LibraryDocument.cs" />
     <Compile Include="Models\UserCreationResponse.cs" />
     <Compile Include="Models\ReminderCreationResult.cs" />
     <Compile Include="Models\ReminderCreationInfo.cs" />

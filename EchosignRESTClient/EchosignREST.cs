@@ -429,6 +429,29 @@ namespace EchosignRESTClient
         }
 
         /// <summary>
+        /// Retrieves agreements for the user
+        /// </summary>
+        /// <returns>UserAgreements</returns>
+        public async Task<DocumentLibraryItems> GetLibraryDocuments()
+        {
+            HttpResponseMessage result = await client.GetAsync(apiEndpointVer + "/libraryDocuments").ConfigureAwait(false);
+            if (result.IsSuccessStatusCode)
+            {
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                DocumentLibraryItems documents = JsonConvert.DeserializeObject<DocumentLibraryItems>(response);
+
+                return documents;
+            }
+            else
+            {
+                string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                HandleError(result.StatusCode, response, false);
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Personalize the widget to a signable document for a specific known user
         /// </summary>
         /// <param name="widgetId">The widget identifier, as returned by the widget creation API or retrieved from the API to fetch widgets</param>
