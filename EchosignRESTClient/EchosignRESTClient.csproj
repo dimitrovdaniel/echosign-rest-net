@@ -49,6 +49,8 @@
     <Compile Include="ErrorHandling\EchosignBadRequestException.cs" />
     <Compile Include="ErrorHandling\EchosignOAuthException.cs" />
     <Compile Include="IEchosignREST.cs" />
+    <Compile Include="Models\RequestFormField.cs" />
+    <Compile Include="Models\MergefieldInfo.cs" />
     <Compile Include="Models\ParticipantEmailSetInfo.cs" />
     <Compile Include="Models\ParticipantEmailInfo.cs" />
     <Compile Include="Models\LibraryDocument.cs" />

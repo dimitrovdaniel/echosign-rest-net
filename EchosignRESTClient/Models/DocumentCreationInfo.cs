@@ -65,5 +65,13 @@ namespace EchosignRESTClient.Models
         /// An optional message to the recipients, describing what is being sent or why their signature is required
         /// </summary>
         public string message { get; set; }
+        /// <summary>
+        /// Default value for merge fields in agreement document
+        /// </summary>
+        public List<MergefieldInfo> mergeFieldInfo { get; set; }
+        /// <summary>
+        /// Form fields to place and position in agreement document
+        /// </summary>
+        public List<RequestFormField> formFields { get; set; }
     }
 }
