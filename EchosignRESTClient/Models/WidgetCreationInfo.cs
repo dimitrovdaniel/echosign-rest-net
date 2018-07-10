@@ -31,6 +31,10 @@ namespace EchosignRESTClient.Models
         /// </summary>
         public bool authoringRequested { get; set; }
         /// <summary>
+        /// A callback URL to which Echosign will do a GET request with agreement status updates
+        /// </summary>
+        public string callbackInfo { get; set; }
+        /// <summary>
         /// Security options
         /// </summary>
         public WidgetSecurityOption securityOptions { get; set; }
